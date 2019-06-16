@@ -1,0 +1,4 @@
+## List of git ignored files
+*unity*
+*Windows*
+__pycache__
