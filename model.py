@@ -14,14 +14,13 @@ class QNetwork(nn.Module):
             seed (int): Random seed
         """
         super(QNetwork, self).__init__()
-        self.seed = torch.manual_seed(seed)
-        "*** YOUR CODE HERE ***"
+        try:
+            self.seed = torch.manual_seed(seed)
+        except:
+            print('Seed is set to default None.')
         self.l_in = nn.Linear(state_size,50)
         self.hidden = nn.Linear(50,50)
-        self.l_out = nn.Linear(50,action_size) #solved in 1234 episodes! Average Score: 200.58
-#         self.l_in = nn.Linear(state_size,64)
-#         self.hidden = nn.Linear(64,32)
-#         self.l_out = nn.Linear(32,action_size) # did not worked well
+        self.l_out = nn.Linear(50,action_size)
         self.activ = nn.ReLU()
 
     def forward(self, state):

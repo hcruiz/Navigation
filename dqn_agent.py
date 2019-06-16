@@ -15,19 +15,20 @@ TAU = 1e-3              # for soft update of target parameters
 LR = 5e-4               # learning rate 
 UPDATE_EVERY = 4        # how often to update the network
 
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+#check if gpu/cuda is available
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu") 
 
 class Agent():
     """Interacts with and learns from the environment."""
 
-    def __init__(self, state_size, action_size, seed):
+    def __init__(self, state_size, action_size, seed=None):
         """Initialize an Agent object.
         
-        Params
+        Args
         ======
             state_size (int): dimension of each state
             action_size (int): dimension of each action
-            seed (int): random seed
+            seed (int): random seed; default None
         """
         self.state_size = state_size
         self.action_size = action_size
