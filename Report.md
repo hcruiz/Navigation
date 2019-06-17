@@ -19,8 +19,11 @@ episodes. In addition it was observed, that the agent can get a reward up to +15
 
 ## Future Work
 
-The submission has concrete future ideas for improving the agent's performance.
-
 The performance of the vanilla DQN agent with similar parameters used in the LunarLander gym environment was surprisingly efficient. However, the learning profile hints at room for improvement. Here, we describe future changes to the vanilla implementations that will be explored:
 
-* Thorough hyper-parameter search. eps_start, eps_end, eps_decay, gamma, tau
+* Thorough hyper-parameter search. A systematic grid search could be performed to obtain better parameters than the currently used and to study the behaviour of the agent depending on eps_end, eps_decay, gamma, tau (from least to most interesting).
+* A more systematic exploration of the architectures are also be promising to improve performance.
+* Implementation of Priority Experience Replay and tuning the hyper-parameters of this step.
+* Implementation of the Double Q-Learning precedure is straightforward and a promising modification.
+* Implementation of the Duelling Network Architecture could help if the Q-value function has a state-dependent offset and their dependent on the actions ('advantage values') is additive. The improvement of this modification might, however, be more significant if pixel values are used as state observations. 
+* Finally, other modifications included in the Rainbow algorithm could help. Each of these modifications (Multi-step bootstrap targets, Distributional DQN and Noisy DQN) should be explored progressively. 
