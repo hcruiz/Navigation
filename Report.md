@@ -1,4 +1,4 @@
-# Report on Navigation in Bananas Collector Environment
+# Navigation in Bananas Collector Environment
 
 This report provides a description of the Deep Q-Learning implementation to solve the navigation and recollection problem of the (Unity) Bananas Environment. 
 The implementation is such that, in principle, it is compatible with any Unity environment, although this has not been tested.
@@ -20,3 +20,7 @@ episodes. In addition it was observed, that the agent can get a reward up to +15
 ## Future Work
 
 The submission has concrete future ideas for improving the agent's performance.
+
+The performance of the vanilla DQN agent with similar parameters used in the LunarLander gym environment was surprisingly efficient. However, the learning profile hints at room for improvement. Here, we describe future changes to the vanilla implementations that will be explored:
+
+* Thorough hyper-parameter search. eps_start, eps_end, eps_decay, gamma, tau
