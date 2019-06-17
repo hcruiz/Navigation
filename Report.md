@@ -5,9 +5,11 @@ The implementation is such that, in principle, it is compatible with any Unity e
 
 ## Learning Algorithm
 
-The report clearly describes 
-- the learning algorithm, along with the chosen hyperparameters
-- the model architectures for any neural networks.
+### Deep Q-Learning 
+along with the chosen hyperparameters
+### The neural network architecture
+The neural network used as agent for this report is a simple 2-hidden layers neural network with relu activation. The hidden layers have 50 neurons each and are fully connected between them, with the input layer (37x50) and the output layer (50x4). The weight initialization of each layer is the default initialization of nn.Linear in PyTorch. The output layer is simply a linear readout layer giving the 4 Q-values, one for each available action.
+
 
 ## Results
 ![Plot of Rewards](https://github.com/hcruiz/Navigation/blob/master/Score_smoothed_vs_Episode.png)
@@ -24,6 +26,6 @@ The performance of the vanilla DQN agent with similar parameters used in the Lun
 * Thorough hyper-parameter search. A systematic grid search could be performed to obtain better parameters than the currently used and to study the behaviour of the agent depending on eps_end, eps_decay, gamma, tau (from least to most interesting).
 * A more systematic exploration of the architectures are also be promising to improve performance.
 * Implementation of Priority Experience Replay and tuning the hyper-parameters of this step.
-* Implementation of the Double Q-Learning precedure is straightforward and a promising modification.
+* Implementation of the Double Q-Learning procedure is straightforward and a promising modification.
 * Implementation of the Duelling Network Architecture could help if the Q-value function has a state-dependent offset and their dependent on the actions ('advantage values') is additive. The improvement of this modification might, however, be more significant if pixel values are used as state observations. 
 * Finally, other modifications included in the Rainbow algorithm could help. Each of these modifications (Multi-step bootstrap targets, Distributional DQN and Noisy DQN) should be explored progressively. 
