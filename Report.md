@@ -6,7 +6,13 @@ The implementation is such that, in principle, it is compatible with any Unity e
 ## Learning Algorithm
 
 ### Deep Q-Learning 
-along with the chosen hyperparameters
+Deep Q-Learning (or DQN) uses a neural network (NN) to represent the action-value tupel q(s,a) for a given state s as an input to the NN. The algoritm adapts the weights of NN to target the (unknown) optimal action-value function _q*(s,a)_ from which we can extract optimal behaviour by choosing the action _a_ that maximizes the value _q*(a,s)_ at a given state _s_. The weight adaptation is done by gradient descent over the expected quadratic loss between the target action value function and the _predicted_ values by the NN. 
+Since the target is unknown, we aproximate the target by the so-called Temporal-Difference target composed by the reward and the maximized action-value q(s,a) for the following sampled step. Hence, we have an iterative procedure in which we evaluate the Q-values for the sampled states and update the NN using this information. 
+In order to stabilize the learning procedure, it is required to fix the maximum Q-value for the target for some update steps. This is called _fixed Q-values_ and it decouples the target from the parameter updates. 
+An additional characteristic of the vanilla DQN algorithm is the use of a 'replay buffer' in which the sampled state, action, reward and next state (S,A,R,S') _experience tuples_ are saved. Then, when updating the weights, a mini-batch is  sampled from this buffer uniformly to evalue the gradient and make the update. This _experience replay_ brakes the correlation between the samples used in the update step and stabilizes learning.
+
+__along with the chosen hyperparameters__
+
 ### The neural network architecture
 The neural network used as agent for this report is a simple 2-hidden layers neural network with relu activation. The hidden layers have 50 neurons each and are fully connected between them, with the input layer (37x50) and the output layer (50x4). The weight initialization of each layer is the default initialization of nn.Linear in PyTorch. The output layer is simply a linear readout layer giving the 4 Q-values, one for each available action.
 
