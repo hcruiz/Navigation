@@ -7,9 +7,34 @@ The implementation is such that, in principle, it is compatible with any Unity e
 
 ### Deep Q-Learning 
 Deep Q-Learning (or DQN) uses a neural network (NN) to represent the action-value tupel q(s,a) for a given state s as an input to the NN. The algoritm adapts the weights of NN to target the (unknown) optimal action-value function _q*(s,a)_ from which we can extract optimal behaviour by choosing the action _a_ that maximizes the value _q*(a,s)_ at a given state _s_. The weight adaptation is done by gradient descent over the expected quadratic loss between the target action value function and the _predicted_ values by the NN. 
-Since the target is unknown, we aproximate the target by the so-called Temporal-Difference target composed by the reward and the maximized action-value q(s,a) for the following sampled step. Hence, we have an iterative procedure in which we evaluate the Q-values for the sampled states and update the NN using this information. 
-In order to stabilize the learning procedure, it is required to fix the maximum Q-value for the target for some update steps. This is called _fixed Q-values_ and it decouples the target from the parameter updates. 
-An additional characteristic of the vanilla DQN algorithm is the use of a 'replay buffer' in which the sampled state, action, reward and next state (S,A,R,S') _experience tuples_ are saved. Then, when updating the weights, a mini-batch is  sampled from this buffer uniformly to evalue the gradient and make the update. This _experience replay_ brakes the correlation between the samples used in the update step and stabilizes learning.
+Since the target is unknown, we aproximate the target by the so-called Temporal-Difference target composed of the reward and the maximized action-value q(s,a) for the following state. Hence, we have an iterative procedure in which we evaluate the Q-values for the sampled states and update the NN using this information. 
+In order to stabilize the learning procedure, it is required to fix the maximum Q-value for the target for some update steps. This is called _fixed Q-values_ and it decouples the target from the parameter updates. Notice that this approach requires that we initialize 2 different NNs, one used to sample the actions (the 'actor' network), and one to evaluate the targets (the 'target' network). Hence, to ensure that the actor and the target networks synchronize, we have also to update the target network in the direction of the actor network.
+An additional characteristic of the vanilla DQN algorithm is the use of a 'replay buffer' in which the sampled state, action, reward and next state (S,A,R,S') _experience tuples_ are saved. Then, when updating the weights, a mini-batch is  sampled from this buffer uniformly to evalue the gradient and make the update. This _experience replay_ breaks the correlation between the samples used in the update step and stabilizes learning.
+#### Pseudo-code
+```
+ Initialize experience replay buffer with capacity C
+ Initialize NN with random weights
+ Initialize epsilon
+ score = 0
+ for i_episode = 1,...,N:
+     Initialize state
+     for t = 1,...,T:
+         Get epsilon-greedy action given state
+         Get next_state and reward given action
+         Check if the episode is done
+         Save experience tuple in replay buffer
+         Every K steps:
+            Update agent's weights
+         State = next_state
+         Score += reward
+         if done: 
+            break             
+        Decrease epsilon: epsilon = max(min_epsilon, decay*epsilon)
+```
+
+The epsilon-greedy action selection is the standard uniform draw of an action with probability epsilon and otherwise the action that maximizes the Q-values. 
+The step above that needs to be clarifed is the agent's update. While at each step the resulting experience tuple is saved to the replay buffer, the gradient descent step is performed only every K steps. The update step is chosen to be ADAM. 
+In addition, every time the actor network is updated, we update the target network by a small quantity _tau_ in the direction of the actor network, i.e. with an exponential moving average update.
 
 __along with the chosen hyperparameters__
 
