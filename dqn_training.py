@@ -1,3 +1,4 @@
+## NOTE: skeleton provided by Udacity and modified/extended by hcruiz
 import numpy as np
 from collections import namedtuple, deque
 import torch
