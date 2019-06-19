@@ -1,4 +1,4 @@
-## NOTE: skeleton provided by Udacity and modified as necessary by hcruiz, e.g. update step for the local network implemented by hcruiz
+## NOTE: skeleton provided by Udacity and modified/extended by hcruiz, e.g. update step for the local network implemented by hcruiz
 import numpy as np
 import random
 from collections import namedtuple, deque
