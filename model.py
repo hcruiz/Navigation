@@ -12,6 +12,8 @@ class QNetwork(nn.Module):
             state_size (int): Dimension of each state
             action_size (int): Dimension of each action
             seed (int): Random seed
+            
+        NOTE: skeleton provided by Udacity
         """
         super(QNetwork, self).__init__()
         try:
