@@ -1,3 +1,4 @@
+## NOTE: skeleton provided by Udacity and modified as necessary by hcruiz, e.g. update step for the local network implemented by hcruiz
 import numpy as np
 import random
 from collections import namedtuple, deque
@@ -121,7 +122,8 @@ class Agent():
 
 
 class ReplayBuffer:
-    """Fixed-size buffer to store experience tuples."""
+    """Fixed-size buffer to store experience tuples.
+    NOTE: provided by Udacity"""
 
     def __init__(self, action_size, buffer_size, batch_size, seed):
         """Initialize a ReplayBuffer object.
